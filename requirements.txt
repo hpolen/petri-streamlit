@@ -1,0 +1,5 @@
+streamlit
+inspect-ai
+pyyaml>=6.0
+
+git+https://github.com/safety-research/petri.git

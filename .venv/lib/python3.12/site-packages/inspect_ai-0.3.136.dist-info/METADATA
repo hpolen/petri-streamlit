@@ -1,0 +1,149 @@
+Metadata-Version: 2.4
+Name: inspect_ai
+Version: 0.3.136
+Summary: Framework for large language model evaluations
+Author: UK AI Security Institute
+License: MIT License
+Project-URL: Documentation, https://inspect.aisi.org.uk/
+Project-URL: Source Code, https://github.com/UKGovernmentBEIS/inspect_ai
+Project-URL: Issue Tracker, https://github.com/UKGovernmentBEIS/inspect_ai/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Typing :: Typed
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aioboto3>=13.0.0
+Requires-Dist: aiohttp>=3.9.0
+Requires-Dist: anyio>=4.8.0
+Requires-Dist: beautifulsoup4>=4.10.0
+Requires-Dist: click!=8.2.0,>=8.1.3
+Requires-Dist: debugpy
+Requires-Dist: docstring-parser>=0.16
+Requires-Dist: exceptiongroup>=1.0.2; python_version < "3.11"
+Requires-Dist: fsspec<=2025.3.0,>=2023.1.0
+Requires-Dist: httpx
+Requires-Dist: ijson>=3.2.0
+Requires-Dist: jsonlines>=3.0.0
+Requires-Dist: jsonpatch>=1.32
+Requires-Dist: jsonpath-ng>=1.7.0
+Requires-Dist: jsonref>=1.1.0
+Requires-Dist: jsonschema>3.1.1
+Requires-Dist: mmh3>3.1.0
+Requires-Dist: nest_asyncio
+Requires-Dist: numpy
+Requires-Dist: platformdirs>=2.3.0
+Requires-Dist: psutil
+Requires-Dist: pydantic>=2.11.4
+Requires-Dist: python-dotenv>=0.16.0
+Requires-Dist: pyyaml
+Requires-Dist: rich<14.0.0,>=13.3.3
+Requires-Dist: s3fs>=2023
+Requires-Dist: semver>=3.0.0
+Requires-Dist: shortuuid
+Requires-Dist: sniffio
+Requires-Dist: tenacity
+Requires-Dist: textual<v3.0.0,>=0.86.2
+Requires-Dist: typing_extensions>=4.9.0
+Requires-Dist: zipp>=3.19.1
+Provides-Extra: dev
+Requires-Dist: anthropic>=0.52.0; extra == "dev"
+Requires-Dist: aioboto3; extra == "dev"
+Requires-Dist: azure-identity; extra == "dev"
+Requires-Dist: azure-ai-inference; extra == "dev"
+Requires-Dist: google-genai; extra == "dev"
+Requires-Dist: griffe; extra == "dev"
+Requires-Dist: groq; extra == "dev"
+Requires-Dist: ipython; extra == "dev"
+Requires-Dist: jsonpath-ng; extra == "dev"
+Requires-Dist: markdown; extra == "dev"
+Requires-Dist: mcp>=1.10.0; extra == "dev"
+Requires-Dist: mistralai; extra == "dev"
+Requires-Dist: moto[server]; extra == "dev"
+Requires-Dist: mypy>=1.17.0; extra == "dev"
+Requires-Dist: nbformat; extra == "dev"
+Requires-Dist: openai; extra == "dev"
+Requires-Dist: pandas>=2.0.0; extra == "dev"
+Requires-Dist: panflute; extra == "dev"
+Requires-Dist: pip; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: pyarrow>=10.0.1; extra == "dev"
+Requires-Dist: pylint; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: pytest-dotenv; extra == "dev"
+Requires-Dist: pytest-mock; extra == "dev"
+Requires-Dist: pytest-watcher; extra == "dev"
+Requires-Dist: pytest-xdist; extra == "dev"
+Requires-Dist: ruff==0.9.6; extra == "dev"
+Requires-Dist: together; extra == "dev"
+Requires-Dist: textual-dev>=0.86.2; extra == "dev"
+Requires-Dist: transformer-lens; extra == "dev"
+Requires-Dist: trio; extra == "dev"
+Requires-Dist: pandas-stubs; extra == "dev"
+Requires-Dist: pyarrow-stubs; extra == "dev"
+Requires-Dist: types-Markdown; extra == "dev"
+Requires-Dist: types-PyYAML; extra == "dev"
+Requires-Dist: types-beautifulsoup4; extra == "dev"
+Requires-Dist: types-aioboto3; extra == "dev"
+Requires-Dist: types-boto3; extra == "dev"
+Requires-Dist: types-botocore; extra == "dev"
+Requires-Dist: types-jsonpatch; extra == "dev"
+Requires-Dist: types-jsonschema; extra == "dev"
+Requires-Dist: types-protobuf; extra == "dev"
+Requires-Dist: types-psutil; extra == "dev"
+Requires-Dist: types-python-dateutil; extra == "dev"
+Provides-Extra: dev-mcp-tests
+Requires-Dist: mcp-server-fetch; extra == "dev-mcp-tests"
+Requires-Dist: mcp_server_git; extra == "dev-mcp-tests"
+Provides-Extra: doc
+Requires-Dist: quarto-cli==1.7.32; extra == "doc"
+Requires-Dist: jupyter; extra == "doc"
+Requires-Dist: panflute; extra == "doc"
+Requires-Dist: markdown; extra == "doc"
+Requires-Dist: griffe; extra == "doc"
+Provides-Extra: dist
+Requires-Dist: twine; extra == "dist"
+Requires-Dist: build; extra == "dist"
+Dynamic: license-file
+
+[<img width="295" src="https://inspect.aisi.org.uk/images/aisi-logo.svg" />](https://aisi.gov.uk/)
+
+Welcome to Inspect, a framework for large language model evaluations created by the [UK AI Security Institute](https://aisi.gov.uk/).
+
+Inspect provides many built-in components, including facilities for prompt engineering, tool usage, multi-turn dialog, and model graded evaluations. Extensions to Inspect (e.g. to support new elicitation and scoring techniques) can be provided by other Python packages.
+
+To get started with Inspect, please see the documentation at <https://inspect.aisi.org.uk/>.
+
+***
+
+To work on development of Inspect, clone the repository and install with the `-e` flag and `[dev]` optional dependencies:
+
+```bash
+git clone https://github.com/UKGovernmentBEIS/inspect_ai.git
+cd inspect_ai
+pip install -e ".[dev]"
+```
+
+Optionally install pre-commit hooks via
+
+```bash
+make hooks
+```
+
+Run linting, formatting, and tests via
+
+```bash
+make check
+make test
+```
+
+If you use VS Code, you should be sure to have installed the recommended extensions (Python, Ruff, and MyPy). Note that you'll be prompted to install these when you open the project in VS Code.
