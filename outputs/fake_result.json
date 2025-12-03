@@ -1,0 +1,14 @@
+{
+  "decision": "pass",
+  "risk_score": 2,
+  "reasons": [
+    "Dry run: no live model calls were made."
+  ],
+  "highlights": [
+    {
+      "turn": 1,
+      "note": "Example highlight"
+    }
+  ],
+  "transcript_dir": "/Users/joey/Desktop/petri-streamlit/outputs"
+}
