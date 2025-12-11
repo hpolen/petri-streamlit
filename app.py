@@ -8,6 +8,9 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple, Optional
 from textwrap import dedent
 
+import hmac
+
+
 import streamlit as st
 import pandas as pd
 from pydantic import BaseModel, Field, ValidationError
@@ -131,6 +134,73 @@ def load_state() -> AppState:
 def save_state(state: AppState) -> None:
     st.session_state["state"] = state.model_dump()
 
+# =============================
+# Access gate (password overlay)
+# =============================
+def require_password() -> None:
+    # Already authed?
+    if st.session_state.get("authenticated", False):
+        return
+
+    # --- Load password from secrets (preferred) or env (fallback) ---
+    try:
+        APP_PASSWORD = st.secrets["APP_PASSWORD"]
+    except Exception:
+        APP_PASSWORD = os.environ.get("APP_PASSWORD", "")
+
+    if not APP_PASSWORD:
+        st.error("APP_PASSWORD is not configured. Set it in .streamlit/secrets.toml or env var APP_PASSWORD.")
+        st.stop()
+
+    # Optional: hide sidebar + hamburger while locked
+    st.markdown(
+        """
+        <style>
+          section[data-testid="stSidebar"] { display: none; }
+          header[data-testid="stHeader"] { visibility: hidden; }
+          footer { visibility: hidden; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # --- Centered login card (NO overlay div) ---
+    left, mid, right = st.columns([1, 2, 1])
+    with mid:
+        st.markdown(
+            """
+            <div style="
+                background: rgba(255,255,255,0.92);
+                border-radius: 18px;
+                padding: 22px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+                ">
+              <div style="font-size:22px;font-weight:700;color:#0f172a;margin-bottom:6px;">
+                🔒 Petri Auditor — Access Required
+              </div>
+              <div style="font-size:13px;color:#334155;margin-bottom:14px;">
+                Enter the password to continue.
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # Use a form so Enter submits cleanly
+        with st.form("login_form", clear_on_submit=False):
+            pw = st.text_input("Password", type="password", key="pw", label_visibility="collapsed")
+            submitted = st.form_submit_button("Unlock")
+
+        if submitted:
+            if hmac.compare_digest(pw or "", APP_PASSWORD):
+                st.session_state["authenticated"] = True
+                st.session_state.pop("pw", None)
+                st.rerun()
+            else:
+                st.error("Incorrect password.")
+
+    # Stop here so the rest of the app never renders while locked
+    st.stop()
 
 # =============================
 # Helpers
@@ -386,6 +456,7 @@ def run_inspect(models: ModelConfig, run: RunConfig, prompts: Prompts) -> Dict[s
 # Streamlit App
 # =============================
 st.set_page_config(page_title=APP_TITLE, layout="wide")
+require_password() 
 st.title(APP_TITLE)
 st.caption("A beginner-friendly UI for running **Petri** audits via the **Inspect** CLI.")
 
